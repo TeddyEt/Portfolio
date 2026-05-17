@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Tewodros Endalamaw — Computer Science student in Addis Ababa building interactive, user-friendly web experiences."
+    />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="color-scheme" content="dark light" />
+
+    <meta property="og:title" content="Tewodros Endalamaw — Portfolio" />
+    <meta
+      property="og:description"
+      content="Computer Science student (Expected 2027). React, JS, PHP, C++ — projects, skills, and contact."
+    />
+    <meta property="og:type" content="website" />
+
+    <title>Tewodros Endalamaw — Portfolio</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main" data-i18n="skip_to_content">Skip to content</a>
+
+    <header class="site-header" id="top" tabindex="-1">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-text">Tewodros</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+            <span class="sr-only" data-i18n="menu">Menu</span>
+            <span class="burger" aria-hidden="true"></span>
+          </button>
+          <div class="nav-links" id="nav-links">
+            <a href="#about" data-i18n="nav_about">About</a>
+            <a href="#skills" data-i18n="nav_skills">Skills</a>
+            <a href="#projects" data-i18n="nav_projects">Projects</a>
+            <a href="#journey" data-i18n="nav_journey">Journey</a>
+            <a href="#contact" class="cta" data-i18n="nav_contact">Contact</a>
+          </div>
+        </nav>
+
+        <div class="header-actions">
+          <button class="chip" type="button" id="themeToggle" aria-label="Toggle theme">
+            <span class="chip-dot" aria-hidden="true"></span>
+            <span class="chip-text">Theme</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" data-reveal>
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <p class="badge">3rd Year CS Student • Addis Ababa</p>
+            <h1>
+              <span>Hi, I’m</span>
+              <span class="accent">Tewodros Endalamaw</span>
+            </h1>
+            <p class="lead">
+              I design and build interactive, user-friendly web experiences — with a strong problem-solving core from C++.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#projects">View Work</a>
+              <a class="button ghost" href="./assets/CV.pdf" target="_blank" rel="noreferrer">My CV</a>
+              <a class="button ghost" href="#contact">Get in Touch</a>
+            </div>
+            <div class="hero-meta" aria-label="Quick facts">
+              <div class="stat">
+                <div class="stat-k">React</div>
+                <div class="stat-v">UI Focus</div>
+              </div>
+              <div class="stat">
+                <div class="stat-k">PHP</div>
+                <div class="stat-v">Backend Basics</div>
+              </div>
+              <div class="stat">
+                <div class="stat-k">C++</div>
+                <div class="stat-v">Algorithms</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-bg" aria-hidden="true">
+          <div class="blob b1"></div>
+          <div class="blob b2"></div>
+          <div class="grid"></div>
+        </div>
+      </section>
+
+      <section class="section" id="about" data-reveal>
+        <div class="container">
+          <div class="section-head">
+            <h2 data-i18n="about_title">About</h2>
+            <p data-i18n="about_sub">
+              A builder mindset: clean UI, solid logic, and constant learning.
+            </p>
+          </div>
+
+          <div class="cards two">
+            <article class="card">
+              <h3 data-i18n="about_story_title">What I’m into</h3>
+              <p data-i18n="about_story_body">
+                I enjoy turning ideas into smooth, accessible interfaces. I’m especially interested in React-driven frontends and practical backend
+                fundamentals with PHP and MySQL.
+              </p>
+              <div class="pill-row" role="list" aria-label="Interests">
+                <span class="pill" role="listitem" data-i18n="pill_ui">UI Engineering</span>
+                <span class="pill" role="listitem" data-i18n="pill_accessibility">Accessibility</span>
+                <span class="pill" role="listitem" data-i18n="pill_learning">Fast Learning</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3 data-i18n="about_now_title">Now</h3>
+              <p data-i18n="about_now_body">
+                I’m currently expanding my React skills, building portfolio-ready projects, and strengthening data structures and algorithms for
+                real-world problem solving.
+              </p>
+              <div class="now-list">
+                <div class="now-item">
+                  <div class="now-dot" aria-hidden="true"></div>
+                  <div>
+                    <div class="now-k" data-i18n="now_1_title">Learning</div>
+                    <div class="now-v" data-i18n="now_1_body">React patterns, component design, modern tooling</div>
+                  </div>
+                </div>
+                <div class="now-item">
+                  <div class="now-dot" aria-hidden="true"></div>
+                  <div>
+                    <div class="now-k" data-i18n="now_2_title">Building</div>
+                    <div class="now-v" data-i18n="now_2_body">Small web apps that feel fast and intuitive</div>
+                  </div>
+                </div>
+                <div class="now-item">
+                  <div class="now-dot" aria-hidden="true"></div>
+                  <div>
+                    <div class="now-k" data-i18n="now_3_title">Improving</div>
+                    <div class="now-v" data-i18n="now_3_body">Algorithms, clean code, Git collaboration</div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="skills" data-reveal>
+        <div class="container">
+          <div class="section-head">
+            <h2 data-i18n="skills_title">Technical Skills</h2>
+            <p data-i18n="skills_sub">A practical toolkit for modern web projects.</p>
+          </div>
+
+          <div class="skill-grid" role="list">
+            <article class="card skill" role="listitem">
+              <h3 data-i18n="skills_lang">Languages</h3>
+              <div class="chip-grid" aria-label="Languages">
+                <span class="chip2">JavaScript</span>
+                <span class="chip2">HTML5</span>
+                <span class="chip2">CSS3</span>
+                <span class="chip2">PHP</span>
+                <span class="chip2">C++</span>
+              </div>
+            </article>
+            <article class="card skill" role="listitem">
+              <h3 data-i18n="skills_frameworks">Libraries &amp; Frameworks</h3>
+              <div class="chip-grid" aria-label="Frameworks">
+                <span class="chip2">React.js</span>
+              </div>
+            </article>
+            <article class="card skill" role="listitem">
+              <h3 data-i18n="skills_tools">Databases &amp; Tools</h3>
+              <div class="chip-grid" aria-label="Tools">
+                <span class="chip2">MySQL</span>
+                <span class="chip2">VS Code</span>
+                <span class="chip2">Git</span>
+                <span class="chip2">GitHub</span>
+              </div>
+            </article>
+            <article class="card skill" role="listitem">
+              <h3 data-i18n="skills_strengths">Key Strengths</h3>
+              <ul class="bullets">
+                <li data-i18n="strength_1">Frontend Design — interactive, user-friendly UIs</li>
+                <li data-i18n="strength_2">Core Problem Solving — algorithms &amp; C++ fundamentals</li>
+                <li data-i18n="strength_3">Collaboration &amp; Learning — adapt fast to new stacks</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects" data-reveal>
+        <div class="container">
+          <div class="section-head">
+            <h2 data-i18n="projects_title">Projects</h2>
+            <p data-i18n="projects_sub">Two projects that reflect my focus on usability and logic.</p>
+          </div>
+
+          <div class="filter-row" role="group" aria-label="Project filters">
+            <button class="filter active" type="button" data-filter="all" data-i18n="filter_all">All</button>
+            <button class="filter" type="button" data-filter="web" data-i18n="filter_web">Web</button>
+            <button class="filter" type="button" data-filter="cpp" data-i18n="filter_cpp">C++</button>
+          </div>
+
+          <div class="project-grid" id="projectGrid">
+            <article class="card project" data-tags="web php" tabindex="0">
+              <div class="project-top">
+                <div class="project-icon" aria-hidden="true">📝</div>
+                <div class="project-title">
+                  <h3 data-i18n="p1_title">Student Feedback Website</h3>
+                  <p class="muted" data-i18n="p1_stack">HTML • CSS • PHP</p>
+                </div>
+              </div>
+              <p data-i18n="p1_desc">
+                A responsive web app where students anonymously evaluate instructors using digital questionnaires.
+              </p>
+              <div class="tag-row" aria-label="Tags">
+                <span class="tag">Responsive UI</span>
+                <span class="tag">Forms</span>
+                <span class="tag">PHP Backend</span>
+              </div>
+              <div class="project-actions">
+                <button class="button small" type="button" data-modal="p1" data-i18n="details">Details</button>
+              </div>
+            </article>
+
+            <article class="card project" data-tags="cpp" tabindex="0">
+              <div class="project-top">
+                <div class="project-icon" aria-hidden="true">🧩</div>
+                <div class="project-title">
+                  <h3 data-i18n="p2_title">Club Registration System</h3>
+                  <p class="muted" data-i18n="p2_stack">C++ • CLI</p>
+                </div>
+              </div>
+              <p data-i18n="p2_desc">
+                A command-line tool to streamline club registrations with admin approvals, using OOP and data structures.
+              </p>
+              <div class="tag-row" aria-label="Tags">
+                <span class="tag">OOP</span>
+                <span class="tag">Data Structures</span>
+                <span class="tag">Admin Workflow</span>
+              </div>
+              <div class="project-actions">
+                <button class="button small" type="button" data-modal="p2" data-i18n="details">Details</button>
+              </div>
+            </article>
+          </div>
+
+          <div class="coming card" aria-label="More projects coming soon">
+            <h3>More projects coming soon</h3>
+            <p class="muted">
+              I’m actively building new web apps and sharpening my React skills. Check back soon for new case studies and demos.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="journey" data-reveal>
+        <div class="container">
+          <div class="section-head">
+            <h2 data-i18n="journey_title">Journey</h2>
+            <p data-i18n="journey_sub">Education + certifications, presented as a quick timeline.</p>
+          </div>
+
+          <div class="timeline" role="list">
+            <article class="timeline-item card" role="listitem">
+              <div class="timeline-left">
+                <div class="timeline-dot" aria-hidden="true"></div>
+                <div class="timeline-year">2027</div>
+              </div>
+              <div class="timeline-body">
+                <h3 data-i18n="edu_title">BSc in Computer Science</h3>
+                <p class="muted" data-i18n="edu_school">Hope Enterprise University College • Addis Ababa</p>
+                <p data-i18n="edu_detail">Expected Graduation • Currently 3rd Year Student</p>
+              </div>
+            </article>
+
+            <article class="timeline-item card" role="listitem">
+              <div class="timeline-left">
+                <div class="timeline-dot" aria-hidden="true"></div>
+                <div class="timeline-year" data-i18n="cert_year">Certs</div>
+              </div>
+              <div class="timeline-body">
+                <h3 data-i18n="cert_title">Certifications</h3>
+                <ul class="bullets">
+                  <li data-i18n="cert_1">Programming Fundamentals — Udacity</li>
+                  <li data-i18n="cert_2">Basic Web Development — Kibur College Bootcamp</li>
+                  <li data-i18n="cert_3">Java &amp; C++ Programming — Perfect Computer Training Educational Institute</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact" data-reveal>
+        <div class="container">
+          <div class="section-head">
+            <h2 data-i18n="contact_title">Contact</h2>
+            <p data-i18n="contact_sub">Want to collaborate or chat about a project? Reach out.</p>
+          </div>
+
+          <div class="cards two">
+            <article class="card">
+              <h3 data-i18n="contact_quick">Quick contact</h3>
+              <div class="contact-row">
+                <div>
+                  <div class="contact-k" data-i18n="email">Email</div>
+                  <div class="contact-v">
+                    <a href="mailto:tewodrosendalamaw68@gmail.com">tewodrosendalamaw68@gmail.com</a>
+                  </div>
+                </div>
+                <button class="button small ghost" type="button" data-copy="tewodrosendalamaw68@gmail.com" data-i18n="copy">
+                  Copy
+                </button>
+              </div>
+              <div class="contact-row">
+                <div>
+                  <div class="contact-k" data-i18n="phone">Phone</div>
+                  <div class="contact-v">
+                    <a href="tel:+251973951191">+251 973 951 191</a>
+                  </div>
+                </div>
+                <button class="button small ghost" type="button" data-copy="+251 973 951 191" data-i18n="copy">Copy</button>
+              </div>
+              <div class="contact-row">
+                <div>
+                  <div class="contact-k" data-i18n="social">Social</div>
+                  <div class="contact-v">
+                    <a href="https://github.com/TeddyEt" target="_blank" rel="noreferrer">GitHub</a>
+                    <span class="sep">•</span>
+                    <a href="http://www.linkedin.com/in/tewodros-endalamaw-000b79212" target="_blank" rel="noreferrer">LinkedIn</a>
+                  </div>
+                </div>
+              </div>
+              <p class="muted tiny" data-i18n="contact_note">
+                Tip: the copy buttons work offline too.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3 data-i18n="contact_message">Send a message</h3>
+              <form class="form" id="contactForm">
+                <label>
+                  <span data-i18n="form_name">Your name</span>
+                  <input name="name" autocomplete="name" required />
+                </label>
+                <label>
+                  <span data-i18n="form_email">Your email</span>
+                  <input name="email" type="email" autocomplete="email" required />
+                </label>
+                <label>
+                  <span data-i18n="form_message">Message</span>
+                  <textarea name="message" rows="4" required></textarea>
+                </label>
+                <button class="button primary" type="submit" data-i18n="form_send">Open email draft</button>
+                <p class="muted tiny" data-i18n="form_hint">
+                  This uses your email app via a mailto link (no server needed).
+                </p>
+              </form>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-left">
+          <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>TE</span>
+          </div>
+          <div class="footer-text">
+            <div class="muted" data-i18n="footer_tag">Built with HTML, CSS, and JavaScript.</div>
+            <div class="tiny muted">© <span id="year"></span> Tewodros Endalamaw</div>
+          </div>
+        </div>
+
+        <a class="back-top" href="#top" data-i18n="back_to_top">Back to top</a>
+      </div>
+    </footer>
+
+    <dialog class="modal" id="projectModal" aria-labelledby="modalTitle">
+      <div class="modal-inner">
+        <div class="modal-head">
+          <h3 id="modalTitle">Project</h3>
+          <button class="icon-btn" type="button" id="modalClose" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="./scripts/main.js" defer></script>
+  </body>
+</html>

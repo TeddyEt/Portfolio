@@ -8,7 +8,7 @@ const typeIcons = {
 
 export default function Journey({ journey = [] }) {
   return (
-    <section className="py-20 border-t border-slate-200 dark:border-slate-800/80" id="journey">
+    <section className="py-20 border-t border-slate-200 dark:border-slate-800/80" id="journey" data-reveal>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="max-w-2xl mb-12">
           <p className="text-xs font-bold tracking-widest uppercase text-blue-600 dark:text-blue-400 mb-2">Background</p>

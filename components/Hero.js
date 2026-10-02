@@ -47,7 +47,7 @@ export default function Hero({ profile = {} }) {
   const focusItems = Array.isArray(coreFocus) && coreFocus.length > 0 ? coreFocus : defaultFocuses;
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden subtle-grid" id="top">
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden subtle-grid" id="top" data-reveal>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="max-w-3xl">
           {/* Status Badge */}

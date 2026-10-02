@@ -20,7 +20,7 @@ export default function Projects({ projects = [] }) {
   });
 
   return (
-    <section className="py-20 border-t border-slate-200 dark:border-slate-800/80" id="projects">
+    <section className="py-20 border-t border-slate-200 dark:border-slate-800/80" id="projects" data-reveal>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>

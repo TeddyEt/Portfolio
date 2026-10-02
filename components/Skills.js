@@ -9,7 +9,7 @@ const categoryIcons = {
 
 export default function Skills({ skills = [] }) {
   return (
-    <section className="py-20 border-t border-slate-200 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-900/30" id="skills">
+    <section className="py-20 border-t border-slate-200 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-900/30" id="skills" data-reveal>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="max-w-2xl mb-12">
           <p className="text-xs font-bold tracking-widest uppercase text-blue-600 dark:text-blue-400 mb-2">Technical Skills</p>

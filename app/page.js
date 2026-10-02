@@ -9,6 +9,7 @@ import Skills from '../components/Skills';
 import Journey from '../components/Journey';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import ScrollReveal from '../components/ScrollReveal';
 
 async function getPortfolioData() {
   try {
@@ -32,6 +33,7 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50/60 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+      <ScrollReveal />
       <Navbar cvUrl={profile.cvUrl || '/CV.pdf'} />
       <main className="flex-1">
         <Hero profile={profile} />

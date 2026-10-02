@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { NextResponse } from 'next/server';
+import { put } from '@vercel/blob';
 
 const dataFilePath = path.join(process.cwd(), 'data', 'portfolio.json');
 const backupFilePath = path.join(process.cwd(), 'data', 'portfolio.backup.json');
@@ -54,18 +55,45 @@ export async function POST(request) {
     const mergedData = {
       ...updatedData,
       settings: {
-        ...currentData.settings,
+        ...currentData?.settings,
         ...(updatedData.settings || {}),
       },
     };
 
-    // Save backup first
-    if (currentData) {
-      await fs.writeFile(backupFilePath, JSON.stringify(currentData, null, 2), 'utf-8');
+    // 1. If Vercel Blob is configured
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      try {
+        await put('data/portfolio.json', JSON.stringify(mergedData, null, 2), {
+          access: 'public',
+          addRandomSuffix: false,
+        });
+      } catch (blobErr) {
+        console.error('Blob portfolio write error:', blobErr);
+      }
     }
 
-    // Write new data
-    await fs.writeFile(dataFilePath, JSON.stringify(mergedData, null, 2), 'utf-8');
+    // 2. Local filesystem write
+    try {
+      if (currentData) {
+        await fs.writeFile(backupFilePath, JSON.stringify(currentData, null, 2), 'utf-8');
+      }
+      await fs.writeFile(dataFilePath, JSON.stringify(mergedData, null, 2), 'utf-8');
+    } catch (fsErr) {
+      if (fsErr.code === 'EROFS' || fsErr.message?.includes('read-only')) {
+        if (process.env.BLOB_READ_WRITE_TOKEN) {
+          const { settings: _, ...publicResponse } = mergedData;
+          return NextResponse.json({ success: true, data: publicResponse });
+        }
+        return NextResponse.json(
+          {
+            error:
+              'Vercel filesystem is read-only. Connect Vercel Blob (free) in your Vercel Dashboard (Storage -> Create Store -> Blob) to enable live edits on Vercel, or save changes locally and push via Git.',
+          },
+          { status: 500 }
+        );
+      }
+      throw fsErr;
+    }
 
     const { settings: _, ...publicResponse } = mergedData;
     return NextResponse.json({ success: true, data: publicResponse });

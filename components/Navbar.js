@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, FileText, Settings, ArrowUpRight } from 'lucide-react';
+import { Menu, X, FileText, UserCog, ArrowUpRight } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 export default function Navbar({ cvUrl = '/CV.pdf' }) {
@@ -76,10 +76,10 @@ export default function Navbar({ cvUrl = '/CV.pdf' }) {
 
           <Link
             href="/admin"
-            title="Portfolio Admin CMS"
+            title="Admin Portal"
             className="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 flex items-center justify-center transition-colors shadow-sm"
           >
-            <Settings className="w-4 h-4" />
+            <UserCog className="w-4 h-4" />
           </Link>
         </div>
 
@@ -121,10 +121,10 @@ export default function Navbar({ cvUrl = '/CV.pdf' }) {
             </a>
             <Link
               href="/admin"
-              className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
             >
-              <Settings className="w-3.5 h-3.5" />
-              CMS Admin
+              <UserCog className="w-3.5 h-3.5" />
+              Admin Portal
             </Link>
           </div>
         </div>

@@ -29,10 +29,18 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { pin, data: updatedData } = body;
+    const { pin, data: updatedData, action } = body;
 
     const currentData = await getPortfolioData();
     const validPin = currentData?.settings?.adminPin || '2027';
+
+    // Verify PIN action
+    if (action === 'verify') {
+      if (!pin || String(pin).trim() !== String(validPin).trim()) {
+        return NextResponse.json({ error: 'Incorrect PIN' }, { status: 401 });
+      }
+      return NextResponse.json({ success: true, valid: true });
+    }
 
     if (!pin || String(pin).trim() !== String(validPin).trim()) {
       return NextResponse.json({ error: 'Invalid Admin PIN' }, { status: 401 });

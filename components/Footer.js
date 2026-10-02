@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, UserCog } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Footer() {
@@ -21,8 +21,9 @@ export default function Footer() {
         </div>
 
         <div className="flex items-center gap-5">
-          <Link href="/admin" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            CMS Portal
+          <Link href="/admin" className="inline-flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            <UserCog className="w-3.5 h-3.5" />
+            <span>Admin Portal</span>
           </Link>
           <a
             href="https://github.com/TeddyEt/Portfolio"

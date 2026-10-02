@@ -4,7 +4,7 @@ A modern, responsive full-stack developer portfolio and dynamic Content Manageme
 
 ---
 
-## 🌟 Highlights
+## Highlights
 - **4th-Year Computer Science Senior Profile**: Showcasing full-stack engineering work, systems programming with C++, algorithms, and coursework at Hope Enterprise University College.
 - **Dedicated Admin CMS (`/admin`)**: Password/PIN-protected dashboard to edit personal details, add/edit/delete projects, manage technical skills, update timeline milestones, and upload new CV PDFs directly in the browser without touching code.
 - **Employer-First Design**: Clean, high-contrast engineering aesthetic with seamless dark/light modes, subtle grid patterns, and zero generic AI bloat.
@@ -13,7 +13,7 @@ A modern, responsive full-stack developer portfolio and dynamic Content Manageme
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Install Dependencies
 ```bash
@@ -44,7 +44,7 @@ npm run start
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 ```text
 portfolio/
 ├── app/
@@ -67,7 +67,7 @@ portfolio/
 
 ---
 
-## 🌿 Git & Deployment Workflow
+## Git & Deployment Workflow
 
 This project is linked to [TeddyEt/Portfolio](https://github.com/TeddyEt/Portfolio.git) on the `v2-modern-cms` branch.
 

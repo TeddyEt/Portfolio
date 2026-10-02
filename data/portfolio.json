@@ -10,27 +10,70 @@
     "github": "https://github.com/TeddyEt",
     "linkedin": "https://www.linkedin.com/in/tewodros-endalamaw-000b79212",
     "cvUrl": "/uploads/CV.pdf",
-    "heroHeadline": "Crafting clean, reliable web applications with modern engineering rigor.",
-    "shortBio": "I'm a 4th-year Computer Science student in Addis Ababa specializing in React, Next.js, and Node.js. With a strong core in algorithms, data structures, and C++, I build intuitive user interfaces backed by solid backend architecture.",
+    "heroHeadline": "",
+    "shortBio": "I'm a 4th-year Computer Science student in Addis Ababa specializing in React, Next.js, and Node.js. With a strong core in algorithms, data structures, and C++, I build intuitive user interfaces backed by solid backend architecture, and eager to learn and experience new things.",
     "aboutIntro": "A builder focused on clarity, performance, and clean code.",
-    "aboutDescription": "I enjoy solving real-world challenges through software. My focus is on full-stack web engineering with React, Next.js, Node.js, and relational databases, complemented by a deep analytical foundation in C++ and systems programming."
+    "aboutDescription": "I enjoy solving real-world challenges through software. My focus is on full-stack web engineering with React, Next.js, Node.js, and relational databases, complemented by a deep analytical foundation in C++ and systems programming.",
+    "coreFocus": [
+      {
+        "id": "cf-1",
+        "label": "React & Next.js",
+        "icon": "code"
+      },
+      {
+        "id": "cf-2",
+        "label": "Node.js & MySQL",
+        "icon": "database"
+      },
+      {
+        "id": "cf-3",
+        "label": "C++ & OOP Logic",
+        "icon": "layers"
+      }
+    ]
   },
   "skills": [
     {
       "category": "Frontend Engineering",
-      "items": ["React.js", "Next.js", "JavaScript (ES6+)", "Tailwind CSS", "HTML5 & Semantic UI", "CSS3 & Modern Layouts"]
+      "items": [
+        "React.js",
+        "Next.js",
+        "JavaScript (ES6+)",
+        "Tailwind CSS",
+        "HTML5 & Semantic UI",
+        "CSS3 & Modern Layouts"
+      ]
     },
     {
       "category": "Backend & Databases",
-      "items": ["Node.js", "RESTful APIs", "PHP", "MySQL", "Database Design", "Authentication"]
+      "items": [
+        "Node.js",
+        "RESTful APIs",
+        "PHP",
+        "MySQL",
+        "Database Design",
+        "Authentication"
+      ]
     },
     {
       "category": "Core & Systems",
-      "items": ["C++", "Java", "Object-Oriented Design (OOP)", "Data Structures & Algorithms", "Problem Solving"]
+      "items": [
+        "C++",
+        "Java",
+        "Object-Oriented Design (OOP)",
+        "Data Structures & Algorithms",
+        "Problem Solving"
+      ]
     },
     {
       "category": "Tools & Workflow",
-      "items": ["Git & GitHub", "VS Code", "Postman", "Vercel", "Command Line (CLI)"]
+      "items": [
+        "Git & GitHub",
+        "VS Code",
+        "Postman",
+        "Vercel",
+        "Command Line (CLI)"
+      ]
     }
   ],
   "projects": [
@@ -41,7 +84,12 @@
       "category": "web",
       "featured": true,
       "image": "/projects/Feedback_sample.png",
-      "tags": ["React / Web", "PHP", "MySQL", "Responsive UI"],
+      "tags": [
+        "React / Web",
+        "PHP",
+        "MySQL",
+        "Responsive UI"
+      ],
       "description": "A secure web platform enabling students to anonymously evaluate instructors and courses. Built with responsive input workflows, server-side data processing, and validation.",
       "highlights": [
         "Anonymous submission model ensuring privacy and candid student feedback",
@@ -58,7 +106,12 @@
       "category": "web",
       "featured": true,
       "image": "/projects/Student_Registration_sample.png",
-      "tags": ["Web", "PHP", "MySQL", "Authentication"],
+      "tags": [
+        "Web",
+        "PHP",
+        "MySQL",
+        "Authentication"
+      ],
       "description": "Streamlines university course registrations, member enrollments, and identity management with role-based dashboard views.",
       "highlights": [
         "Multi-step verification and automated record validation",
@@ -75,7 +128,12 @@
       "category": "cpp",
       "featured": true,
       "image": "/projects/Club_Member_Manager_sample.png",
-      "tags": ["C++", "OOP", "Data Structures", "CLI"],
+      "tags": [
+        "C++",
+        "OOP",
+        "Data Structures",
+        "CLI"
+      ],
       "description": "An object-oriented member management system featuring hierarchical access control, dynamic record search, and approval queues.",
       "highlights": [
         "Architected with robust C++ OOP classes (encapsulation, inheritance, polymorphism)",
@@ -92,7 +150,12 @@
       "category": "web",
       "featured": false,
       "image": "/projects/Exam_Management_System_sample.png",
-      "tags": ["Web", "PHP", "MySQL", "Scheduling"],
+      "tags": [
+        "Web",
+        "PHP",
+        "MySQL",
+        "Scheduling"
+      ],
       "description": "Coordinates academic timetable schedules, conflict-free room assignments, and secure grade posting workflows.",
       "highlights": [
         "Conflict detection algorithm preventing overlapping time slots and room bookings",
@@ -109,7 +172,12 @@
       "category": "web",
       "featured": false,
       "image": "/projects/Football_Event_Manager_sample.png",
-      "tags": ["Web", "JavaScript", "PHP", "Events"],
+      "tags": [
+        "Web",
+        "JavaScript",
+        "PHP",
+        "Events"
+      ],
       "description": "Organizes sports tournaments with automated fixture scheduling, standings computation, and live match score tracking.",
       "highlights": [
         "Automated round-robin and knockout tournament bracket generation",
@@ -144,6 +212,6 @@
     }
   ],
   "settings": {
-    "adminPin": "2027"
+    "adminPin": "Password@portfolio123"
   }
 }

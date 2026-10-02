@@ -14,6 +14,7 @@ import {
   AlertCircle,
   FileText,
   User,
+  UserCog,
   FolderGit2,
   Cpu,
   GraduationCap,
@@ -49,6 +50,7 @@ export default function AdminPage() {
       shortBio: '',
       aboutIntro: '',
       aboutDescription: '',
+      coreFocus: [],
     },
     skills: [],
     projects: [],
@@ -81,12 +83,34 @@ export default function AdminPage() {
   const fetchData = async (enteredPin) => {
     setLoading(true);
     try {
+      // 1. Verify PIN with server
+      const verifyRes = await fetch('/api/portfolio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'verify',
+          pin: enteredPin,
+        }),
+      });
+
+      if (!verifyRes.ok) {
+        sessionStorage.removeItem('portfolio_admin_pin');
+        setIsAuthenticated(false);
+        showToast('Incorrect PIN. Please try again.', 'error');
+        return;
+      }
+
+      // 2. Fetch portfolio data
       const res = await fetch('/api/portfolio');
       if (res.ok) {
         const json = await res.json();
         setData((prev) => ({
           ...prev,
           ...json,
+          settings: {
+            ...prev.settings,
+            adminPin: enteredPin,
+          },
         }));
         setIsAuthenticated(true);
         if (enteredPin) {
@@ -117,11 +141,12 @@ export default function AdminPage() {
   const handleSaveAll = async () => {
     setSaving(true);
     try {
+      const activePin = pin || sessionStorage.getItem('portfolio_admin_pin');
       const res = await fetch('/api/portfolio', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          pin: pin || sessionStorage.getItem('portfolio_admin_pin'),
+          pin: activePin,
           data,
         }),
       });
@@ -129,6 +154,11 @@ export default function AdminPage() {
       const resJson = await res.json();
       if (res.ok && resJson.success) {
         showToast('All changes saved and published successfully!');
+        // If PIN was updated in settings, sync it to the active session immediately
+        if (data.settings?.adminPin) {
+          setPin(data.settings.adminPin);
+          sessionStorage.setItem('portfolio_admin_pin', data.settings.adminPin);
+        }
       } else {
         showToast(resJson.error || 'Failed to save changes', 'error');
       }
@@ -289,6 +319,61 @@ export default function AdminPage() {
     setData((prev) => ({ ...prev, projects: newProjects }));
   };
 
+  // Core Focus handlers
+  const handleAddCoreFocus = () => {
+    const newFocus = {
+      id: 'cf-' + Date.now(),
+      label: 'New Focus Area',
+      icon: 'code',
+    };
+    setData((prev) => ({
+      ...prev,
+      profile: {
+        ...prev.profile,
+        coreFocus: [...(prev.profile?.coreFocus || []), newFocus],
+      },
+    }));
+    showToast('Added focus item. Remember to click "Save All Changes" to publish.');
+  };
+
+  const handleUpdateCoreFocus = (id, field, value) => {
+    setData((prev) => ({
+      ...prev,
+      profile: {
+        ...prev.profile,
+        coreFocus: (prev.profile?.coreFocus || []).map((cf) =>
+          cf.id === id ? { ...cf, [field]: value } : cf
+        ),
+      },
+    }));
+  };
+
+  const handleDeleteCoreFocus = (id) => {
+    setData((prev) => ({
+      ...prev,
+      profile: {
+        ...prev.profile,
+        coreFocus: (prev.profile?.coreFocus || []).filter((cf) => cf.id !== id),
+      },
+    }));
+    showToast('Focus item removed.');
+  };
+
+  const handleMoveCoreFocus = (index, direction) => {
+    const list = [...(data.profile?.coreFocus || [])];
+    const target = index + direction;
+    if (target < 0 || target >= list.length) return;
+    const [item] = list.splice(index, 1);
+    list.splice(target, 0, item);
+    setData((prev) => ({
+      ...prev,
+      profile: {
+        ...prev.profile,
+        coreFocus: list,
+      },
+    }));
+  };
+
   // Export JSON backup
   const handleExportBackup = () => {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -306,27 +391,21 @@ export default function AdminPage() {
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
         <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-xl">
           <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-400 mx-auto mb-4">
-            <Lock className="w-6 h-6" />
+            <UserCog className="w-6 h-6" />
           </div>
 
-          <h1 className="text-xl font-bold text-center text-slate-900 dark:text-white mb-2">
-            Portfolio CMS Portal
+          <h1 className="text-xl font-bold text-center text-slate-900 dark:text-white mb-6">
+            admin portal
           </h1>
-          <p className="text-xs text-center text-slate-500 dark:text-slate-400 mb-6">
-            Enter your secret Admin PIN to manage your portfolio, upload your CV, and update projects.
-          </p>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Admin Security PIN
-              </label>
               <input
                 type="password"
                 required
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
-                placeholder="Default: 2027"
+                placeholder="PIN"
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -336,14 +415,7 @@ export default function AdminPage() {
               disabled={loading}
               className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-sm flex items-center justify-center gap-2"
             >
-              {loading ? (
-                <span>Verifying...</span>
-              ) : (
-                <>
-                  <Unlock className="w-4 h-4" />
-                  <span>Unlock CMS</span>
-                </>
-              )}
+              {loading ? <span>login...</span> : <span>login</span>}
             </button>
           </form>
 
@@ -676,6 +748,95 @@ export default function AdminPage() {
                   }
                   className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 text-sm"
                 />
+              </div>
+
+              {/* Core Focus Badges Editor */}
+              <div className="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                      Core Focus Badges (Hero Header)
+                    </h3>
+                    <p className="text-xs text-slate-500">
+                      Edit the highlighted skill pills shown right below your hero introduction.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleAddCoreFocus}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-sm"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>Add Focus</span>
+                  </button>
+                </div>
+
+                <div className="space-y-2.5">
+                  {(!data.profile?.coreFocus || data.profile.coreFocus.length === 0) ? (
+                    <p className="text-xs text-slate-400 italic">No core focus items configured. Click "Add Focus" to add one.</p>
+                  ) : (
+                    data.profile.coreFocus.map((cf, idx) => (
+                      <div
+                        key={cf.id || idx}
+                        className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 flex items-center justify-between gap-3"
+                      >
+                        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <input
+                            type="text"
+                            value={cf.label || ''}
+                            onChange={(e) => handleUpdateCoreFocus(cf.id, 'label', e.target.value)}
+                            placeholder="e.g. React & Next.js"
+                            className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-xs font-medium"
+                          />
+                          <select
+                            value={cf.icon || 'code'}
+                            onChange={(e) => handleUpdateCoreFocus(cf.id, 'icon', e.target.value)}
+                            className="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 text-xs text-slate-700 dark:text-slate-300"
+                          >
+                            <option value="code">Code Icon (&lt;/&gt;)</option>
+                            <option value="database">Database Icon</option>
+                            <option value="layers">Layers / Architecture Icon</option>
+                            <option value="cpu">CPU / Systems Icon</option>
+                            <option value="terminal">Terminal / CLI Icon</option>
+                            <option value="globe">Globe / Web Icon</option>
+                            <option value="server">Server Icon</option>
+                            <option value="wrench">Wrench / Tool Icon</option>
+                            <option value="workflow">Workflow Icon</option>
+                          </select>
+                        </div>
+
+                        <div className="flex items-center gap-1 shrink-0">
+                          <button
+                            type="button"
+                            onClick={() => handleMoveCoreFocus(idx, -1)}
+                            disabled={idx === 0}
+                            className="p-1.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 disabled:opacity-30"
+                            title="Move Up"
+                          >
+                            <MoveUp className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleMoveCoreFocus(idx, 1)}
+                            disabled={idx === data.profile.coreFocus.length - 1}
+                            className="p-1.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 disabled:opacity-30"
+                            title="Move Down"
+                          >
+                            <MoveDown className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteCoreFocus(cf.id)}
+                            className="p-1.5 rounded text-rose-500 hover:text-rose-700"
+                            title="Remove Focus"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
             </div>
           )}

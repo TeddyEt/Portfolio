@@ -1,4 +1,36 @@
-import { ArrowDown, FileText, Send, Sparkles, Code2, Database, Layers } from 'lucide-react';
+import {
+  ArrowDown,
+  FileText,
+  Send,
+  Sparkles,
+  Code2,
+  Database,
+  Layers,
+  Cpu,
+  Globe,
+  Terminal,
+  Server,
+  Wrench,
+  Workflow,
+} from 'lucide-react';
+
+const iconMap = {
+  code: { icon: Code2, color: 'text-blue-500' },
+  database: { icon: Database, color: 'text-emerald-500' },
+  layers: { icon: Layers, color: 'text-purple-500' },
+  cpu: { icon: Cpu, color: 'text-amber-500' },
+  terminal: { icon: Terminal, color: 'text-rose-500' },
+  globe: { icon: Globe, color: 'text-cyan-500' },
+  server: { icon: Server, color: 'text-indigo-500' },
+  wrench: { icon: Wrench, color: 'text-orange-500' },
+  workflow: { icon: Workflow, color: 'text-teal-500' },
+};
+
+const defaultFocuses = [
+  { id: 'cf-1', label: 'React & Next.js', icon: 'code' },
+  { id: 'cf-2', label: 'Node.js & MySQL', icon: 'database' },
+  { id: 'cf-3', label: 'C++ & OOP Logic', icon: 'layers' },
+];
 
 export default function Hero({ profile = {} }) {
   const {
@@ -9,7 +41,10 @@ export default function Hero({ profile = {} }) {
     heroHeadline = 'Crafting clean, reliable web applications with modern engineering rigor.',
     shortBio = 'Specializing in React, Next.js, and Node.js with a strong problem-solving core in algorithms and C++.',
     cvUrl = '/CV.pdf',
+    coreFocus = defaultFocuses,
   } = profile;
+
+  const focusItems = Array.isArray(coreFocus) && coreFocus.length > 0 ? coreFocus : defaultFocuses;
 
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden subtle-grid" id="top">
@@ -69,15 +104,17 @@ export default function Hero({ profile = {} }) {
           {/* Core Tech Pills */}
           <div className="pt-6 border-t border-slate-200 dark:border-slate-800/80 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs font-semibold text-slate-500 dark:text-slate-400">
             <span className="uppercase tracking-wider text-[11px] text-slate-400 dark:text-slate-500">Core Focus:</span>
-            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
-              <Code2 className="w-3.5 h-3.5 text-blue-500" /> React & Next.js
-            </span>
-            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
-              <Database className="w-3.5 h-3.5 text-emerald-500" /> Node.js & MySQL
-            </span>
-            <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
-              <Layers className="w-3.5 h-3.5 text-purple-500" /> C++ & OOP Logic
-            </span>
+            {focusItems.map((item, idx) => {
+              const iconKey = (item.icon || 'code').toLowerCase();
+              const conf = iconMap[iconKey] || iconMap.code;
+              const IconComp = conf.icon;
+              return (
+                <span key={item.id || idx} className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
+                  <IconComp className={`w-3.5 h-3.5 ${conf.color}`} />
+                  <span>{item.label}</span>
+                </span>
+              );
+            })}
           </div>
         </div>
       </div>

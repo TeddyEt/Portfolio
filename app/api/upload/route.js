@@ -33,6 +33,10 @@ export async function POST(request) {
     const extension = path.extname(originalName).toLowerCase();
     const baseName = path.basename(originalName, extension).replace(/[^a-zA-Z0-9_-]/g, '_');
 
+    // Convert file to Buffer for maximum reliability across environments
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
     // Check for Vercel Blob token (supports all standard Vercel variable naming)
     const blobToken =
       process.env.BLOB_READ_WRITE_TOKEN ||
@@ -42,11 +46,12 @@ export async function POST(request) {
     // 1. Preferred on Vercel: Vercel Blob Storage if configured
     if (blobToken) {
       try {
-        const blobFileName = targetType === 'cv' ? 'CV.pdf' : `${baseName}_${Date.now()}${extension}`;
-        const blob = await put(`uploads/${blobFileName}`, file, {
+        const blobFileName = targetType === 'cv' ? `CV_${Date.now()}.pdf` : `${baseName}_${Date.now()}${extension}`;
+        const blob = await put(`uploads/${blobFileName}`, buffer, {
           access: 'public',
-          addRandomSuffix: targetType !== 'cv',
+          addRandomSuffix: true,
           token: blobToken,
+          contentType: file.type || (targetType === 'cv' ? 'application/pdf' : 'application/octet-stream'),
         });
 
         return NextResponse.json({
@@ -70,7 +75,7 @@ export async function POST(request) {
       return NextResponse.json(
         {
           error:
-            'Vercel Blob token not detected in this deployment runtime. After connecting Blob Storage in Vercel, push a git commit to trigger a fresh deployment so Vercel injects BLOB_READ_WRITE_TOKEN. (Note: Your CV(3).pdf is already integrated directly into the git repository and live on the site!)',
+            'Vercel Blob token (BLOB_READ_WRITE_TOKEN) is not available to this deployment. In Vercel Dashboard -> Settings -> Environment Variables, verify BLOB_READ_WRITE_TOKEN is checked for Production and redeploy. (Note: Your CV(3).pdf is now directly committed to the main branch and live on your site!)',
         },
         { status: 500 }
       );
@@ -78,9 +83,6 @@ export async function POST(request) {
 
     // 3. Local filesystem storage (for local development or environments with writable disks)
     try {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-
       let destDir = path.join(process.cwd(), 'public', 'uploads');
       let relativeUrl = '';
 

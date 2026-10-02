@@ -1,0 +1,149 @@
+{
+  "profile": {
+    "name": "Tewodros Endalamaw",
+    "title": "Full-Stack & Frontend Engineer",
+    "status": "4th Year Computer Science Senior",
+    "institution": "Hope Enterprise University College",
+    "location": "Addis Ababa, Ethiopia",
+    "email": "tewodrosendalamaw68@gmail.com",
+    "phone": "+251 973 951 191",
+    "github": "https://github.com/TeddyEt",
+    "linkedin": "https://www.linkedin.com/in/tewodros-endalamaw-000b79212",
+    "cvUrl": "/uploads/CV.pdf",
+    "heroHeadline": "Crafting clean, reliable web applications with modern engineering rigor.",
+    "shortBio": "I'm a 4th-year Computer Science student in Addis Ababa specializing in React, Next.js, and Node.js. With a strong core in algorithms, data structures, and C++, I build intuitive user interfaces backed by solid backend architecture.",
+    "aboutIntro": "A builder focused on clarity, performance, and clean code.",
+    "aboutDescription": "I enjoy solving real-world challenges through software. My focus is on full-stack web engineering with React, Next.js, Node.js, and relational databases, complemented by a deep analytical foundation in C++ and systems programming."
+  },
+  "skills": [
+    {
+      "category": "Frontend Engineering",
+      "items": ["React.js", "Next.js", "JavaScript (ES6+)", "Tailwind CSS", "HTML5 & Semantic UI", "CSS3 & Modern Layouts"]
+    },
+    {
+      "category": "Backend & Databases",
+      "items": ["Node.js", "RESTful APIs", "PHP", "MySQL", "Database Design", "Authentication"]
+    },
+    {
+      "category": "Core & Systems",
+      "items": ["C++", "Java", "Object-Oriented Design (OOP)", "Data Structures & Algorithms", "Problem Solving"]
+    },
+    {
+      "category": "Tools & Workflow",
+      "items": ["Git & GitHub", "VS Code", "Postman", "Vercel", "Command Line (CLI)"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "p1",
+      "title": "Student Feedback Website",
+      "tagline": "Anonymous digital questionnaire system for faculty evaluations",
+      "category": "web",
+      "featured": true,
+      "image": "/projects/Feedback_sample.png",
+      "tags": ["React / Web", "PHP", "MySQL", "Responsive UI"],
+      "description": "A secure web platform enabling students to anonymously evaluate instructors and courses. Built with responsive input workflows, server-side data processing, and validation.",
+      "highlights": [
+        "Anonymous submission model ensuring privacy and candid student feedback",
+        "Clean responsive forms optimized for both mobile and desktop screens",
+        "Backend data aggregation with MySQL structured records"
+      ],
+      "github": "https://github.com/TeddyEt",
+      "demo": ""
+    },
+    {
+      "id": "p2",
+      "title": "Student Registration System",
+      "tagline": "Digital academic enrollment and course registration platform",
+      "category": "web",
+      "featured": true,
+      "image": "/projects/Student_Registration_sample.png",
+      "tags": ["Web", "PHP", "MySQL", "Authentication"],
+      "description": "Streamlines university course registrations, member enrollments, and identity management with role-based dashboard views.",
+      "highlights": [
+        "Multi-step verification and automated record validation",
+        "Relational schema for student cohorts, sections, and subjects",
+        "Admin panel for approving registrations and generating rosters"
+      ],
+      "github": "https://github.com/TeddyEt",
+      "demo": ""
+    },
+    {
+      "id": "p3",
+      "title": "Club Member Management System",
+      "tagline": "High-efficiency member administration and event tracking system",
+      "category": "cpp",
+      "featured": true,
+      "image": "/projects/Club_Member_Manager_sample.png",
+      "tags": ["C++", "OOP", "Data Structures", "CLI"],
+      "description": "An object-oriented member management system featuring hierarchical access control, dynamic record search, and approval queues.",
+      "highlights": [
+        "Architected with robust C++ OOP classes (encapsulation, inheritance, polymorphism)",
+        "Fast in-memory data structures for rapid searching and member categorization",
+        "Admin approval workflows with persistent file record serialization"
+      ],
+      "github": "https://github.com/TeddyEt",
+      "demo": ""
+    },
+    {
+      "id": "p4",
+      "title": "Exam Management System",
+      "tagline": "Academic exam scheduling, venue assignment, and result tracking",
+      "category": "web",
+      "featured": false,
+      "image": "/projects/Exam_Management_System_sample.png",
+      "tags": ["Web", "PHP", "MySQL", "Scheduling"],
+      "description": "Coordinates academic timetable schedules, conflict-free room assignments, and secure grade posting workflows.",
+      "highlights": [
+        "Conflict detection algorithm preventing overlapping time slots and room bookings",
+        "Clean tabular views for department coordinators and students",
+        "Centralized database schema for semester-long academic terms"
+      ],
+      "github": "https://github.com/TeddyEt",
+      "demo": ""
+    },
+    {
+      "id": "p5",
+      "title": "Football Event Manager",
+      "tagline": "Tournament scheduling, fixture tracking, and team management app",
+      "category": "web",
+      "featured": false,
+      "image": "/projects/Football_Event_Manager_sample.png",
+      "tags": ["Web", "JavaScript", "PHP", "Events"],
+      "description": "Organizes sports tournaments with automated fixture scheduling, standings computation, and live match score tracking.",
+      "highlights": [
+        "Automated round-robin and knockout tournament bracket generation",
+        "Real-time standings calculation based on wins, draws, and goal differentials",
+        "Interactive match day dashboard for fans and event organizers"
+      ],
+      "github": "https://github.com/TeddyEt",
+      "demo": ""
+    }
+  ],
+  "journey": [
+    {
+      "year": "2023 - Present",
+      "title": "BSc in Computer Science (4th Year Senior)",
+      "organization": "Hope Enterprise University College — Addis Ababa",
+      "description": "Senior student specializing in software engineering, database systems, web architecture, and algorithms. Expected graduation: 2027.",
+      "type": "education"
+    },
+    {
+      "year": "Certifications",
+      "title": "Professional & Technical Accreditations",
+      "organization": "Industry Bootcamp & Institute Programs",
+      "description": "Udacity (Programming Fundamentals) • Kibur College (Web Development Bootcamp) • Perfect Computer Training (Java & C++ Object-Oriented Programming).",
+      "type": "certification"
+    },
+    {
+      "year": "Experience",
+      "title": "Software Engineering & Internship Projects",
+      "organization": "Academic & Real-World System Implementations",
+      "description": "Authored comprehensive technical documentation, architected relational database schemas, and delivered functional full-stack web and systems software.",
+      "type": "experience"
+    }
+  ],
+  "settings": {
+    "adminPin": "2027"
+  }
+}

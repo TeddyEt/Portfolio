@@ -979,6 +979,16 @@ export default function AdminPage() {
                     <span>View Current CV</span>
                   </a>
                 </div>
+
+                <div className="mt-4 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-left text-xs text-slate-500 dark:text-slate-400 space-y-1.5">
+                  <div className="flex items-center gap-2 font-semibold text-slate-700 dark:text-slate-200">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+                    <span>Current CV is active and live</span>
+                  </div>
+                  <p className="leading-relaxed">
+                    Click <strong>View Current CV</strong> above to preview your deployed file. If you are hosting on Vercel and want to upload directly from this browser button, enable free cloud storage in your <strong>Vercel Dashboard &rarr; Storage &rarr; Create Store &rarr; Blob</strong>.
+                  </p>
+                </div>
               </div>
             </div>
           )}

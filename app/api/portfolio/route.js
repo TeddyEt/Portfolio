@@ -61,11 +61,17 @@ export async function POST(request) {
     };
 
     // 1. If Vercel Blob is configured
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
+    const blobToken =
+      process.env.BLOB_READ_WRITE_TOKEN ||
+      process.env.VERCEL_BLOB_READ_WRITE_TOKEN ||
+      process.env.STORAGE_BLOB_READ_WRITE_TOKEN;
+
+    if (blobToken) {
       try {
         await put('data/portfolio.json', JSON.stringify(mergedData, null, 2), {
           access: 'public',
           addRandomSuffix: false,
+          token: blobToken,
         });
       } catch (blobErr) {
         console.error('Blob portfolio write error:', blobErr);
@@ -80,7 +86,7 @@ export async function POST(request) {
       await fs.writeFile(dataFilePath, JSON.stringify(mergedData, null, 2), 'utf-8');
     } catch (fsErr) {
       if (fsErr.code === 'EROFS' || fsErr.message?.includes('read-only')) {
-        if (process.env.BLOB_READ_WRITE_TOKEN) {
+        if (blobToken) {
           const { settings: _, ...publicResponse } = mergedData;
           return NextResponse.json({ success: true, data: publicResponse });
         }

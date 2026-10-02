@@ -33,13 +33,20 @@ export async function POST(request) {
     const extension = path.extname(originalName).toLowerCase();
     const baseName = path.basename(originalName, extension).replace(/[^a-zA-Z0-9_-]/g, '_');
 
+    // Check for Vercel Blob token (supports all standard Vercel variable naming)
+    const blobToken =
+      process.env.BLOB_READ_WRITE_TOKEN ||
+      process.env.VERCEL_BLOB_READ_WRITE_TOKEN ||
+      process.env.STORAGE_BLOB_READ_WRITE_TOKEN;
+
     // 1. Preferred on Vercel: Vercel Blob Storage if configured
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
+    if (blobToken) {
       try {
         const blobFileName = targetType === 'cv' ? 'CV.pdf' : `${baseName}_${Date.now()}${extension}`;
         const blob = await put(`uploads/${blobFileName}`, file, {
           access: 'public',
           addRandomSuffix: targetType !== 'cv',
+          token: blobToken,
         });
 
         return NextResponse.json({
@@ -49,10 +56,27 @@ export async function POST(request) {
         });
       } catch (blobErr) {
         console.error('Vercel Blob upload error:', blobErr);
+        return NextResponse.json(
+          {
+            error: `Vercel Blob upload failed: ${blobErr.message || blobErr}`,
+          },
+          { status: 500 }
+        );
       }
     }
 
-    // 2. Local filesystem storage (for local development or environments with writable disks)
+    // 2. If running on Vercel without token detected
+    if (process.env.VERCEL) {
+      return NextResponse.json(
+        {
+          error:
+            'Vercel Blob token not detected in this deployment runtime. After connecting Blob Storage in Vercel, push a git commit to trigger a fresh deployment so Vercel injects BLOB_READ_WRITE_TOKEN. (Note: Your CV(3).pdf is already integrated directly into the git repository and live on the site!)',
+        },
+        { status: 500 }
+      );
+    }
+
+    // 3. Local filesystem storage (for local development or environments with writable disks)
     try {
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -78,17 +102,8 @@ export async function POST(request) {
         fileName: file.name,
       });
     } catch (fsErr) {
-      // Serverless environments like Vercel have a read-only filesystem
-      if (fsErr.code === 'EROFS' || fsErr.message?.includes('read-only')) {
-        return NextResponse.json(
-          {
-            error:
-              'Vercel filesystem is read-only. Connect Vercel Blob (free) in your Vercel Dashboard (Storage -> Create Store -> Blob) to enable live uploads on Vercel, or push your CV directly via git.',
-          },
-          { status: 500 }
-        );
-      }
-      throw fsErr;
+      console.error('Filesystem write error:', fsErr);
+      return NextResponse.json({ error: fsErr.message || 'Filesystem write error' }, { status: 500 });
     }
   } catch (err) {
     console.error('File upload error:', err);

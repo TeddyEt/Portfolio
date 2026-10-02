@@ -24,10 +24,10 @@ npm install
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
+Open [http://localhost:3005](http://localhost:3005) to view the portfolio.
 
 ### 3. Access the Admin CMS Portal
-Navigate to [http://localhost:3000/admin](http://localhost:3000/admin)
+Navigate to [http://localhost:3005/admin](http://localhost:3005/admin)
 - **Default Admin PIN**: `2027` (can be customized directly in the CMS Security tab).
 - You can manage:
   - Personal Information & Bio

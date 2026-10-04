@@ -45,13 +45,16 @@ export async function POST(request) {
 
     // 1. Preferred on Vercel: Vercel Blob Storage if configured
     if (blobToken) {
+      const blobFileName = targetType === 'cv' ? `CV_${Date.now()}.pdf` : `${baseName}_${Date.now()}${extension}`;
+      const contentType = file.type || (targetType === 'cv' ? 'application/pdf' : 'application/octet-stream');
+
       try {
-        const blobFileName = targetType === 'cv' ? `CV_${Date.now()}.pdf` : `${baseName}_${Date.now()}${extension}`;
+        // Try public access first
         const blob = await put(`uploads/${blobFileName}`, buffer, {
           access: 'public',
           addRandomSuffix: true,
           token: blobToken,
-          contentType: file.type || (targetType === 'cv' ? 'application/pdf' : 'application/octet-stream'),
+          contentType,
         });
 
         return NextResponse.json({
@@ -60,6 +63,38 @@ export async function POST(request) {
           fileName: file.name,
         });
       } catch (blobErr) {
+        // If the store is configured as private, upload with private access and proxy URL
+        const isPrivateStore =
+          blobErr.message?.includes('private store') ||
+          blobErr.message?.includes('Cannot use public access') ||
+          blobErr.message?.includes('private');
+
+        if (isPrivateStore) {
+          try {
+            const privateBlob = await put(`uploads/${blobFileName}`, buffer, {
+              access: 'private',
+              addRandomSuffix: true,
+              token: blobToken,
+              contentType,
+            });
+
+            return NextResponse.json({
+              success: true,
+              url: `/api/blob?url=${encodeURIComponent(privateBlob.url)}`,
+              fileName: file.name,
+              isPrivate: true,
+            });
+          } catch (privateErr) {
+            console.error('Private Blob upload error:', privateErr);
+            return NextResponse.json(
+              {
+                error: `Vercel Blob upload failed: ${privateErr.message || privateErr}`,
+              },
+              { status: 500 }
+            );
+          }
+        }
+
         console.error('Vercel Blob upload error:', blobErr);
         return NextResponse.json(
           {

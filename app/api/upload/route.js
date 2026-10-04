@@ -53,6 +53,7 @@ export async function POST(request) {
         const blob = await put(`uploads/${blobFileName}`, buffer, {
           access: 'public',
           addRandomSuffix: true,
+          allowOverwrite: true,
           token: blobToken,
           contentType,
         });
@@ -74,6 +75,7 @@ export async function POST(request) {
             const privateBlob = await put(`uploads/${blobFileName}`, buffer, {
               access: 'private',
               addRandomSuffix: true,
+              allowOverwrite: true,
               token: blobToken,
               contentType,
             });

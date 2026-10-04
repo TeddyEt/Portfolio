@@ -1,5 +1,4 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import { getPortfolioData } from '../lib/portfolio';
 
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
@@ -10,17 +9,6 @@ import Journey from '../components/Journey';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import ScrollReveal from '../components/ScrollReveal';
-
-async function getPortfolioData() {
-  try {
-    const dataFilePath = path.join(process.cwd(), 'data', 'portfolio.json');
-    const file = await fs.readFile(dataFilePath, 'utf-8');
-    return JSON.parse(file);
-  } catch (err) {
-    console.error('Failed to load portfolio data:', err);
-    return null;
-  }
-}
 
 export const dynamic = 'force-dynamic';
 

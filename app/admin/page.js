@@ -138,7 +138,7 @@ export default function AdminPage() {
     setPin('');
   };
 
-  const handleSaveAll = async () => {
+  const savePayload = async (payload) => {
     setSaving(true);
     try {
       const activePin = pin || sessionStorage.getItem('portfolio_admin_pin');
@@ -147,26 +147,32 @@ export default function AdminPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           pin: activePin,
-          data,
+          data: payload,
         }),
       });
 
       const resJson = await res.json();
       if (res.ok && resJson.success) {
         showToast('All changes saved and published successfully!');
-        // If PIN was updated in settings, sync it to the active session immediately
-        if (data.settings?.adminPin) {
-          setPin(data.settings.adminPin);
-          sessionStorage.setItem('portfolio_admin_pin', data.settings.adminPin);
+        if (payload.settings?.adminPin) {
+          setPin(payload.settings.adminPin);
+          sessionStorage.setItem('portfolio_admin_pin', payload.settings.adminPin);
         }
+        return true;
       } else {
         showToast(resJson.error || 'Failed to save changes', 'error');
+        return false;
       }
     } catch (err) {
       showToast('Error sending update request', 'error');
+      return false;
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleSaveAll = async () => {
+    await savePayload(data);
   };
 
   // CV Upload
@@ -192,14 +198,16 @@ export default function AdminPage() {
       });
       const json = await res.json();
       if (res.ok && json.success) {
-        setData((prev) => ({
-          ...prev,
+        const updatedData = {
+          ...data,
           profile: {
-            ...prev.profile,
+            ...data.profile,
             cvUrl: json.url,
           },
-        }));
-        showToast('Resume PDF uploaded and linked!');
+        };
+        setData(updatedData);
+        await savePayload(updatedData);
+        showToast('Resume PDF uploaded, linked, and saved live!');
       } else {
         showToast(json.error || 'Failed to upload CV', 'error');
       }
@@ -266,7 +274,7 @@ export default function AdminPage() {
     setIsNewProject(true);
   };
 
-  const handleSaveProjectModal = () => {
+  const handleSaveProjectModal = async () => {
     if (!editingProject) return;
 
     const formattedTags = editingProject.tagsString
@@ -285,38 +293,40 @@ export default function AdminPage() {
     delete finalized.tagsString;
     delete finalized.highlightsString;
 
-    if (isNewProject) {
-      setData((prev) => ({
-        ...prev,
-        projects: [finalized, ...prev.projects],
-      }));
-    } else {
-      setData((prev) => ({
-        ...prev,
-        projects: prev.projects.map((p) => (p.id === finalized.id ? finalized : p)),
-      }));
-    }
+    const updatedProjects = isNewProject
+      ? [finalized, ...data.projects]
+      : data.projects.map((p) => (p.id === finalized.id ? finalized : p));
 
+    const updatedData = {
+      ...data,
+      projects: updatedProjects,
+    };
+
+    setData(updatedData);
     setEditingProject(null);
-    showToast('Project updated! Remember to click "Save All Changes" to publish.');
+    await savePayload(updatedData);
   };
 
-  const handleDeleteProject = (id) => {
+  const handleDeleteProject = async (id) => {
     if (!confirm('Are you sure you want to delete this project?')) return;
-    setData((prev) => ({
-      ...prev,
-      projects: prev.projects.filter((p) => p.id !== id),
-    }));
-    showToast('Project removed.');
+    const updatedProjects = data.projects.filter((p) => p.id !== id);
+    const updatedData = {
+      ...data,
+      projects: updatedProjects,
+    };
+    setData(updatedData);
+    await savePayload(updatedData);
   };
 
-  const handleMoveProject = (index, direction) => {
+  const handleMoveProject = async (index, direction) => {
     const targetIndex = index + direction;
     if (targetIndex < 0 || targetIndex >= data.projects.length) return;
     const newProjects = [...data.projects];
     const [moved] = newProjects.splice(index, 1);
     newProjects.splice(targetIndex, 0, moved);
-    setData((prev) => ({ ...prev, projects: newProjects }));
+    const updatedData = { ...data, projects: newProjects };
+    setData(updatedData);
+    await savePayload(updatedData);
   };
 
   // Core Focus handlers

@@ -59,13 +59,13 @@ export default function Projects({ projects = [] }) {
               className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-sm hover:shadow-md transition-all hover:border-blue-300 dark:hover:border-blue-900/60 flex flex-col"
             >
               {/* Image Preview with overlay */}
-              <div className="relative aspect-[16/10] bg-slate-100 dark:bg-slate-800 overflow-hidden border-b border-slate-100 dark:border-slate-800 flex items-center justify-center">
+              <div className="relative aspect-[16/10] bg-slate-100 dark:bg-slate-950/60 overflow-hidden border-b border-slate-100 dark:border-slate-800 flex items-center justify-center p-1.5">
                 {project.image ? (
                   <>
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-300"
                       loading="lazy"
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
@@ -83,7 +83,7 @@ export default function Projects({ projects = [] }) {
                   </div>
                 )}
                 {project.featured && (
-                  <span className="absolute top-3 left-3 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-blue-600 text-white shadow-sm">
+                  <span className="absolute top-3 left-3 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-blue-600 text-white shadow-sm z-10">
                     Featured
                   </span>
                 )}

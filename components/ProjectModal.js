@@ -52,11 +52,14 @@ export default function ProjectModal({ project, isOpen, onClose }) {
         {/* Body */}
         <div className="p-6 max-h-[75vh] overflow-y-auto space-y-5 text-sm text-slate-600 dark:text-slate-300">
           {project.image && (
-            <div className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 aspect-video">
+            <div className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 aspect-video flex items-center justify-center">
               <img
                 src={project.image}
                 alt={project.title}
                 className="w-full h-full object-cover object-top"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
               />
             </div>
           )}

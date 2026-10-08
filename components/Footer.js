@@ -1,7 +1,6 @@
 'use client';
 
-import { ArrowUp, UserCog } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowUp } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,14 +16,10 @@ export default function Footer() {
           <span className="w-5 h-5 rounded bg-blue-600 text-white flex items-center justify-center font-mono text-[10px] font-bold">
             TE
           </span>
-          <p>© {currentYear} Tewodros Endalamaw • Built with React, Next.js & Node.js</p>
+          <p>© {currentYear} Tewodros Endalamaw</p>
         </div>
 
         <div className="flex items-center gap-5">
-          <Link href="/admin" className="inline-flex items-center gap-1 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            <UserCog className="w-3.5 h-3.5" />
-            <span>Admin Portal</span>
-          </Link>
           <a
             href="https://github.com/TeddyEt/Portfolio"
             target="_blank"
